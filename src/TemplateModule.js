@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Input, Grid, Card, Statistic } from 'semantic-ui-react'
+import { Form, Input, Grid, Card, Statistic, Table } from 'semantic-ui-react'
 
 import { useSubstrateState } from './substrate-lib'
 import { TxButton } from './substrate-lib/components'
@@ -54,10 +54,43 @@ const ContributionList = props => {
 
   if(contributions.length > 0) {
     return (
+      // <div className="contribution-list">
+      //   {contributions.map((contrib, i) => (
+      //     <Contribution key={i} account={contrib.account} amount={contrib.amount} share={contrib.share} setStatus={setStatus} />
+      //   ))}
+      // </div>
+
       <div className="contribution-list">
-        {contributions.map((contrib, i) => (
-          <Contribution key={i} account={contrib.account} amount={contrib.amount} share={contrib.share} setStatus={setStatus} />
-        ))}
+        <Table celled striped size="small">
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell width={3} textAlign="right">
+                <strong>Name</strong>
+              </Table.Cell>
+              <Table.Cell width={10}>
+                <strong>Amount</strong>
+              </Table.Cell>
+                <Table.Cell width={3}>
+                  <strong>Share</strong>
+                </Table.Cell>
+            </Table.Row>
+            {contributions.map((contrib, i) => (
+              <Table.Row key={contrib.account}>
+                <Table.Cell width={3} textAlign="right">
+                  Name
+                </Table.Cell>
+                <Table.Cell width={10}>
+                  <span style={{ display: 'inline-block', minWidth: '31em' }}>
+                    {contrib.amount}
+                  </span>
+                </Table.Cell>
+                <Table.Cell width={3}>
+                  {contrib.share}
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
       </div>
     )
   }
