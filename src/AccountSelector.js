@@ -54,8 +54,8 @@ function Main(props) {
       attached="top"
       tabular
       style={{
-        backgroundColor: '#fff',
-        borderColor: '#fff',
+        backgroundColor: '#bf1363',
+        borderColor: '#deeeea',
         paddingTop: '1em',
         paddingBottom: '1em',
       }}
@@ -63,9 +63,19 @@ function Main(props) {
       <Container>
         <Menu.Menu>
           <Image
-            src={`${process.env.PUBLIC_URL}/assets/substrate-logo.png`}
-            size="mini"
+            src={`${process.env.PUBLIC_URL}/assets/logo.png`}
+            size="tiny"
           />
+        </Menu.Menu>
+        <Menu.Menu>
+          <div className="title" style={{fontWeight: 'bold', fontSize: '60px', marginTop: '25px', color: '#deeeea'}}>
+              Fair Squares
+          </div>
+        </Menu.Menu>
+        <Menu.Menu>
+          <div className="title" style={{fontSize: '20px', marginTop: '40px', marginLeft: '40px', color: '#deeeea'}}>
+            fair housing (being) built on substrate
+          </div>
         </Menu.Menu>
         <Menu.Menu position="right" style={{ alignItems: 'center' }}>
           {!currentAccount ? (
@@ -101,7 +111,7 @@ function Main(props) {
             }}
             value={acctAddr(currentAccount)}
           />
-          <BalanceAnnotation />
+          {/* <BalanceAnnotation /> */}
         </Menu.Menu>
       </Container>
     </Menu>
