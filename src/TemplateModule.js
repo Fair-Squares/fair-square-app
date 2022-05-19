@@ -71,13 +71,13 @@ const ContributionBox = props => {
   const subscribeContributions = () => {
     let unsub = null
     const asyncFetch = async () => {
-      const entries = await api.query.templateModule.contributions.entries();
-      const contributionsMap = entries.map(entry => { 
-        let jsonEntry = entry[1].toJSON();
-        console.log("[ContributionBox] contribution account = " + keyring.getPair(jsonEntry[2]).meta.name);
-        return parseContribution(jsonEntry[0], jsonEntry[1], keyring.getPair(jsonEntry[2]).meta.name);
-      });
-      setContributions(contributionsMap)
+      // const entries = await api.query.templateModule.contributions.entries();
+      // const contributionsMap = entries.map(entry => { 
+      //   let jsonEntry = entry[1].toJSON();
+      //   console.log("[ContributionBox] contribution account = " + keyring.getPair(jsonEntry[2]).meta.name);
+      //   return parseContribution(jsonEntry[0], jsonEntry[1], keyring.getPair(jsonEntry[2]).meta.name);
+      // });
+      // setContributions(contributionsMap)
     }
     asyncFetch()
     return () => {
@@ -85,8 +85,8 @@ const ContributionBox = props => {
     }
   }
   
-  useEffect(subscribeFundAmount, [api, keyring])
-  useEffect(subscribeContributions, [api.query.templateModule, currentAmount])
+  // useEffect(subscribeFundAmount, [api, keyring])
+  // useEffect(subscribeContributions, [api.query.templateModule, currentAmount])
 
   return (
     <div className="contribution-box">
@@ -198,12 +198,12 @@ const HouseBox = props => {
 
   const subscribeHouseIndex = () => {
     let unsub = null
-    const houseIndex = () => {
-      api.query.templateModule.houseIndex(newValue => {
-        setCurrentHouseIndex(newValue.toNumber())
-      })
-    }
-    houseIndex()
+    // const houseIndex = () => {
+    //   api.query.templateModule.houseIndex(newValue => {
+    //     setCurrentHouseIndex(newValue.toNumber())
+    //   })
+    // }
+    // houseIndex()
     return () => {
       unsub && unsub()
     }
@@ -211,39 +211,39 @@ const HouseBox = props => {
 
   const subscribeMintedHouses = () => {
     let unsub = null
-    const asyncFetch = async () => {
+    // const asyncFetch = async () => {
 
-      let houses = await api.query.templateModule.mintedHouses.entries();
-      const housesMap = houses.map(house => {
+    //   let houses = await api.query.templateModule.mintedHouses.entries();
+    //   const housesMap = houses.map(house => {
 
-        let jsonHouse = house[1].toJSON();
-        if(jsonHouse !== null) {
-          api.query.templateModule.ownerships.multi(
-            jsonHouse.ownerships,
-            ownerships => {
-              const ownersMap = ownerships.map(ownership => {
+    //     let jsonHouse = house[1].toJSON();
+    //     if(jsonHouse !== null) {
+    //       api.query.templateModule.ownerships.multi(
+    //         jsonHouse.ownerships,
+    //         ownerships => {
+    //           const ownersMap = ownerships.map(ownership => {
 
-                let jsonOwner = ownership.toJSON();
-                return {
-                  account_id: keyring.getPair(jsonOwner.accountId).meta.name,
-                  share: (jsonOwner.share / 1000).toFixed(2)
-                }
-              });
+    //             let jsonOwner = ownership.toJSON();
+    //             return {
+    //               account_id: keyring.getPair(jsonOwner.accountId).meta.name,
+    //               share: (jsonOwner.share / 1000).toFixed(2)
+    //             }
+    //           });
 
-              setOwnerships(ownersMap);
-            }
-          );
+    //           setOwnerships(ownersMap);
+    //         }
+    //       );
 
-          return {
-            id: jsonHouse.id,
-            name: jsonHouse.name,
-            ownerships: ownerships
-          }
-        }
-      });
-      setHouses(housesMap);
-    }
-    asyncFetch()
+    //       return {
+    //         id: jsonHouse.id,
+    //         name: jsonHouse.name,
+    //         ownerships: ownerships
+    //       }
+    //     }
+    //   });
+    //   setHouses(housesMap);
+    // }
+    // asyncFetch()
     return () => {
       unsub && unsub()
     }
@@ -251,47 +251,47 @@ const HouseBox = props => {
 
   const subscribeFsHouses = () => {
     let unsub = null
-    const asyncFetch = async () => {
+    // const asyncFetch = async () => {
 
-      let houses = await api.query.templateModule.fsHouses.entries();
-      const housesMap = houses.map(house => {
+    //   let houses = await api.query.templateModule.fsHouses.entries();
+    //   const housesMap = houses.map(house => {
 
-        let jsonHouse = house[1].toJSON();
-        if(jsonHouse !== null) {
-          api.query.templateModule.ownerships.multi(
-            jsonHouse.ownerships,
-            ownerships => {
-              const ownersMap = ownerships.map(ownership => {
+    //     let jsonHouse = house[1].toJSON();
+    //     if(jsonHouse !== null) {
+    //       api.query.templateModule.ownerships.multi(
+    //         jsonHouse.ownerships,
+    //         ownerships => {
+    //           const ownersMap = ownerships.map(ownership => {
 
-                let jsonOwner = ownership.toJSON();
-                return {
-                  account_id: keyring.getPair(jsonOwner.accountId).meta.name,
-                  share: (jsonOwner.share / 1000).toFixed(2)
-                }
-              });
+    //             let jsonOwner = ownership.toJSON();
+    //             return {
+    //               account_id: keyring.getPair(jsonOwner.accountId).meta.name,
+    //               share: (jsonOwner.share / 1000).toFixed(2)
+    //             }
+    //           });
 
-              setFsOwnerships(ownersMap);
-            }
-          );
+    //           setFsOwnerships(ownersMap);
+    //         }
+    //       );
 
-          return {
-            id: jsonHouse.id,
-            name: jsonHouse.name,
-            ownerships: fsOwnerships
-          }
-        }
-      });
-      setFsHouses(housesMap);
-    }
-    asyncFetch()
+    //       return {
+    //         id: jsonHouse.id,
+    //         name: jsonHouse.name,
+    //         ownerships: fsOwnerships
+    //       }
+    //     }
+    //   });
+    //   setFsHouses(housesMap);
+    // }
+    // asyncFetch()
     return () => {
       unsub && unsub()
     }
   }
 
-  useEffect(subscribeHouseIndex, [api, keyring])
-  useEffect(subscribeMintedHouses, [api.query.templateModule, currentHouseIndex, houses])
-  useEffect(subscribeFsHouses, [api.query.templateModule, currentHouseIndex, fshouses])
+  // useEffect(subscribeHouseIndex, [api, keyring])
+  // useEffect(subscribeMintedHouses, [api.query.templateModule, currentHouseIndex, houses])
+  // useEffect(subscribeFsHouses, [api.query.templateModule, currentHouseIndex, fshouses])
 
   return (
     <div className="houseBox" 
@@ -458,12 +458,12 @@ const ProposalBox = props => {
 
   const subscribeProposalIndex = () => {
     let unsub = null
-    const fetch = () => {
-      api.query.templateModule.proposalIndex(newValue => {
-        setCurrentProposalIndex(newValue.toNumber())
-      })
-    }
-    fetch()
+    // const fetch = () => {
+    //   api.query.templateModule.proposalIndex(newValue => {
+    //     setCurrentProposalIndex(newValue.toNumber())
+    //   })
+    // }
+    // fetch()
     return () => {
       unsub && unsub()
     }
@@ -471,37 +471,37 @@ const ProposalBox = props => {
 
   const subscribeProposals = () => {
     let unsub = null
-    const asyncFetch = async () => {
-      api.query.templateModule.proposals.entries().then((proposals) => {
+    // const asyncFetch = async () => {
+    //   api.query.templateModule.proposals.entries().then((proposals) => {
 
-        const proposalsMap = proposals.map(proposal => {
+    //     const proposalsMap = proposals.map(proposal => {
 
-          let jsonProposal = proposal[1].toJSON();
-          return {
-            id: jsonProposal.id,
-            house_id: jsonProposal.houseId,
-            account_name: keyring.getPair(jsonProposal.accountId).meta.name,
-            account_id: jsonProposal.accountId,
-            valuation: jsonProposal.valuation,
-            house_name: jsonProposal.houseName,
-            active: jsonProposal.active,
-            funded: jsonProposal.funded,
-            vote_ok: jsonProposal.voteOkCount,
-            vote_ko: jsonProposal.voteKoCount
-          }
-        })
+    //       let jsonProposal = proposal[1].toJSON();
+    //       return {
+    //         id: jsonProposal.id,
+    //         house_id: jsonProposal.houseId,
+    //         account_name: keyring.getPair(jsonProposal.accountId).meta.name,
+    //         account_id: jsonProposal.accountId,
+    //         valuation: jsonProposal.valuation,
+    //         house_name: jsonProposal.houseName,
+    //         active: jsonProposal.active,
+    //         funded: jsonProposal.funded,
+    //         vote_ok: jsonProposal.voteOkCount,
+    //         vote_ko: jsonProposal.voteKoCount
+    //       }
+    //     })
         
-        setProposals(proposalsMap)
-      })
-    }
-    asyncFetch()
+    //     setProposals(proposalsMap)
+    //   })
+    // }
+    // asyncFetch()
     return () => {
       unsub && unsub()
     }
   }
 
-  useEffect(subscribeProposalIndex, [api.query.templateModule, keyring])
-  useEffect(subscribeProposals, [api.query.templateModule, currentProposalIndex, proposals])
+  // useEffect(subscribeProposalIndex, [api.query.templateModule, keyring])
+  // useEffect(subscribeProposals, [api.query.templateModule, currentProposalIndex, proposals])
 
   return (
     <div className="proposal-box">
@@ -731,7 +731,7 @@ const VoteForm = props => {
 
 export default function TemplateModule(props) {
   const { api } = useSubstrateState()
-  return api.query.templateModule && api.query.templateModule.something ? (
+  return api.query.templateModule ? (
     <Main {...props} />
   ) : null
 }
