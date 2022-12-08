@@ -70,13 +70,13 @@ function Main() {
             <BlockNumber />
             <BlockNumber finalized />
           </Grid.Row>
-          {/* <Grid.Row stretched>
+          <Grid.Row stretched>
             <Balances />
           </Grid.Row>
           <Grid.Row>
             <Transfer />
             <Upgrade />
-          </Grid.Row> */}
+          </Grid.Row>
           <Grid.Row>
             <Interactor />
             <Events />
